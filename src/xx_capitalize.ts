@@ -29,7 +29,7 @@ type CHAR_MAP = {
   z: "Z";
 };
 
-type MyCapitalize<STRING extends String> =
+type MyCapitalize<STRING extends string> =
   STRING extends `${infer FIRST_CHAR}${infer REST}`
     ? FIRST_CHAR extends keyof CHAR_MAP
       ? `${CHAR_MAP[FIRST_CHAR]}${REST}`
