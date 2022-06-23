@@ -1,3 +1,5 @@
+export default undefined;
+
 type CHAR_MAP = {
   a: "A";
   b: "B";
@@ -35,4 +37,10 @@ type MyCapitalize<STRING extends String> =
     : STRING;
 
 type GetPost = MyCapitalize<"getPost">; // "GetPost"
-type LoadPost = MyCapitalize<"LoadPost">; // "LoadPost"
+
+type HookFunction<S extends string> = `use${MyCapitalize<S>}`;
+
+type UseGetPost = HookFunction<"getPost">; // "useGetPost"
+
+const x: GetPost = "GetPost";
+const z: UseGetPost = "useGetPost";
