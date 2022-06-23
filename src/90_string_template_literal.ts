@@ -19,6 +19,29 @@ const endpoints = {
   },
 } as const;
 
+function createApi<T extends object>(endpoint: T): Api<T> {
+  // @ts-ignore
+  return null;
+}
+
+const myApi = createApi(endpoints);
+myApi.useGetPostQuery();
+
+// type MyRestApi = {
+//   useGetPostQuery: Function,
+//   useUpdateUserQuery: Function
+// }
+
+type QueryFunction<T extends string> = `use${Capitalize<T>}Query`;
+
+type Api<T extends object> = {
+  [K in keyof T as K extends string ? QueryFunction<K> : never]: Function;
+};
+
+type MyRestApi = Api<typeof endpoints>;
+
+type UseGetPostQuery = QueryFunction<"getPost">;
+
 // Aufgabe:
 // wir wollen eine Funktion haben, der wir endpoints übergeben,
 // und die eine liste von hook-Funktionen zurückliefert
